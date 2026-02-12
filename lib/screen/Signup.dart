@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:todo/constant/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class SignupScr extends StatefulWidget {
+  const SignupScr({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignupScr> createState() => _SignupScrState();
 }
 
-class _LoginState extends State<Login> {
+class _SignupScrState extends State<SignupScr> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
+  FocusNode confirmpasswordFocusNode = FocusNode();
 
   final email = TextEditingController();
   final password = TextEditingController();
+  final confirmpassword = TextEditingController();
   @override
   void initState(){
     super.initState();
@@ -22,6 +24,9 @@ class _LoginState extends State<Login> {
       setState(() {});
     });
     passwordFocusNode.addListener(() {
+      setState(() {});
+    });
+    confirmpassword.addListener(() {
       setState(() {});
     });
   }
@@ -39,11 +44,15 @@ class _LoginState extends State<Login> {
              textfield(email, emailFocusNode, 'Email', Icons.email,),
                SizedBox(height: 10),
               textfield(password, passwordFocusNode, 'Password', Icons.lock,),
+              SizedBox(height: 10),
+              textfield(confirmpassword, confirmpasswordFocusNode, 'Confirm Password', Icons.lock,),
               SizedBox(height: 8),
-              account(),
+
              
               SizedBox(height: 20),
-               login_()
+               login_(),
+                SizedBox(height: 20),
+               account(),
 
           ],
         ),
@@ -51,32 +60,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Padding account() {
-    return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text('Forgot password?', style: TextStyle(color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),),
-                  ),
-               
-
-                  Row(
-                mainAxisAlignment: MainAxisAlignment.center
-                ,children: [
-              Text('Do you have an account?', style: TextStyle(color: Colors.black54, fontSize: 14),),
-              SizedBox(width: 5),
-              Text('Sign up ', style: TextStyle(color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),),
-              SizedBox(width: 20),           
-                ],
-                
-              ),
-                 ]
-              ),             
-              
-            );
-  }
 
   Widget login_() {
     return Padding(
@@ -90,12 +73,37 @@ class _LoginState extends State<Login> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: Text('Login', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                  child: Text('Sign Up', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                 ),
                ),
              );
   }
 
+  Padding account() {
+    return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                 children: [
+                 
+
+                  Row(
+                mainAxisAlignment: MainAxisAlignment.center
+                ,children: [
+              Text('Do you have an account?', style: TextStyle(color: Colors.black54, fontSize: 14),),
+              SizedBox(width: 5),
+              Text('login', style: TextStyle(color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),),
+              SizedBox(width: 20),           
+                ],
+                
+              ),
+                 ]
+              ),             
+              
+            );
+               
+              
+            
+  }
   Widget  textfield(TextEditingController controller , FocusNode focusNode, String typename, IconData iconss) {
     return Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
            child: Container(
@@ -135,10 +143,10 @@ class _LoginState extends State<Login> {
     height: 300,
     child: Stack(
       children: [
-        SvgPicture.asset('assets/undraw_welcome-cats_tw36.svg', fit: BoxFit.contain),
+        SvgPicture.asset('assets/Login-amico (1).svg', fit: BoxFit.contain),
         // You can add other widgets here on top of the image
       ],
     ),
   );
- }
+}
 }
