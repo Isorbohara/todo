@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todo/constant/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todo/data/auth_database.dart';
 
 class SignupScr extends StatefulWidget {
-  const SignupScr({super.key});
+  final VoidCallback show;
+  const SignupScr(this.show,{super.key});
 
   @override
   State<SignupScr> createState() => _SignupScrState();
@@ -64,46 +66,56 @@ class _SignupScrState extends State<SignupScr> {
   Widget login_() {
     return Padding(
                padding: const EdgeInsets.all(8.0),
-               child: Container(
-                width: double.infinity,
-                height: 50,
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 27, 73, 141),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text('Sign Up', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
-                ),
+               child: GestureDetector(
+                 onTap: (){
+                  AuthenticationRemote().register(email.text, password.text, confirmpassword.text);
+                 },
+                 child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  margin: EdgeInsets.symmetric(horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 27, 73, 141),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Text('Sign Up', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                  ),
+                 ),
                ),
              );
   }
 
-  Padding account() {
-    return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                 children: [
-                 
-
-                  Row(
-                mainAxisAlignment: MainAxisAlignment.center
-                ,children: [
-              Text('Do you have an account?', style: TextStyle(color: Colors.black54, fontSize: 14),),
-              SizedBox(width: 5),
-              Text('login', style: TextStyle(color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),),
-              SizedBox(width: 20),           
-                ],
-                
+Padding account() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 24),
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Do you have an account?',
+              style: TextStyle(color: Colors.black54, fontSize: 14),
+            ),
+            const SizedBox(width: 5),
+            GestureDetector(
+              onTap: widget.show, // make sure show is a VoidCallback
+              child: Text(
+                'Login',
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-                 ]
-              ),             
-              
-            );
-               
-              
-            
-  }
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
   Widget  textfield(TextEditingController controller , FocusNode focusNode, String typename, IconData iconss) {
     return Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
            child: Container(

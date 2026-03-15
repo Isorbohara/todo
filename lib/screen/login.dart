@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todo/constant/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todo/data/auth_database.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final VoidCallback show;
+  const Login(this.show,{super.key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -12,6 +14,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
+  bool isLoading = false;
 
   final email = TextEditingController();
   final password = TextEditingController();
@@ -43,7 +46,7 @@ class _LoginState extends State<Login> {
               account(),
              
               SizedBox(height: 20),
-               login_()
+               login_(isLoading)
 
           ],
         ),
@@ -67,7 +70,9 @@ class _LoginState extends State<Login> {
                 ,children: [
               Text('Do you have an account?', style: TextStyle(color: Colors.black54, fontSize: 14),),
               SizedBox(width: 5),
-              Text('Sign up ', style: TextStyle(color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),),
+              GestureDetector(
+                onTap: widget.show,
+                child: Text('Sign up ', style: TextStyle(color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),)),
               SizedBox(width: 20),           
                 ],
                 
@@ -78,20 +83,32 @@ class _LoginState extends State<Login> {
             );
   }
 
-  Widget login_() {
+  Widget login_(bool isLoading) {
+    
     return Padding(
                padding: const EdgeInsets.all(8.0),
-               child: Container(
-                width: double.infinity,
-                height: 50,
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 27, 73, 141),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text('Login', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
-                ),
+               child: GestureDetector(
+                onTap: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  await AuthenticationRemote().login(email.text, password.text);
+                  setState(() {
+                    isLoading = false;
+                  });
+                },
+                 child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  margin: EdgeInsets.symmetric(horizontal: 24),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 27, 73, 141),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: (isLoading ? CircularProgressIndicator() : Center(
+                    child: Text('Login', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),)
+                  ),
+                 ),
                ),
              );
   }
