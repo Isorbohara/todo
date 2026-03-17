@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:todo/auth/auth_Page.dart';
+import 'package:todo/auth/auth_page.dart';
 import 'package:todo/screen/home.dart';
 
-class Main_page extends StatelessWidget {
-  const Main_page({super.key});
+class Mainpage extends StatelessWidget {
+  const Mainpage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class Main_page extends StatelessWidget {
           if(snapshot.hasData){
             return Homepage();
           }else{
-            return Auth_page();
+            return Authpage();
           }
         },
       )

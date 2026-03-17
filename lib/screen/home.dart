@@ -1,7 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/screen/login.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   const Homepage({super.key});
+
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+     if (FirebaseAuth.instance.currentUser == null) {
+  if (!mounted) return;
+
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => Login(() {})),
+  );
+}
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

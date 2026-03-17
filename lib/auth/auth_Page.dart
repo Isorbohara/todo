@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:todo/screen/Signup.dart';
+import 'package:todo/screen/signup.dart';
 import 'package:todo/screen/login.dart';
 
-class Auth_page
- extends StatefulWidget {
-  const Auth_page
-  ({super.key});
+class Authpage extends StatefulWidget {
+  const Authpage({super.key});
 
   @override
-  State<Auth_page> createState() => _Auth_pageState();
+  State<Authpage> createState() => _AuthpageState();
 }
 
-class _Auth_pageState extends State<Auth_page> {
-bool a=true;
-void to(){
-  setState(() {
-    a=!a;
-  });
-}
+class _AuthpageState extends State<Authpage> {
+  bool isLogin = true;
+
+  void toggleScreen() {
+    setState(() {
+      isLogin = !isLogin;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    if(a){
-      return Login(to);
-    }else{
-      return SignupScr(to);
-    }
-}}
+    return Scaffold(
+      body: isLogin ? Login(toggleScreen) : SignupScr(toggleScreen),
+    );
+  }
+}
