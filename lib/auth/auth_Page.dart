@@ -21,7 +21,9 @@ class _AuthpageState extends State<Authpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLogin ? Login(toggleScreen) : SignupScr(toggleScreen),
+      body: isLogin
+    ? Login(toggleScreen: toggleScreen)
+    : SignupScr(toggleScreen: toggleScreen),
     );
   }
 }

@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo/data/auth_database.dart';
 
 class SignupScr extends StatefulWidget {
-  final VoidCallback show;
-  const SignupScr(this.show,{super.key});
+  final VoidCallback toggleScreen;
+  const SignupScr({super.key, required this.toggleScreen});
 
   @override
   State<SignupScr> createState() => _SignupScrState();
@@ -100,7 +100,7 @@ Padding account() {
             ),
             const SizedBox(width: 5),
             GestureDetector(
-              onTap: widget.show, // make sure show is a VoidCallback
+              onTap: widget.toggleScreen, // make sure toggleScreen is a VoidCallback
               child: Text(
                 'Login',
                 style: TextStyle(

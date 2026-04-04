@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:todo/constant/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo/data/auth_database.dart';
+import 'package:todo/screen/homepage.dart';
 
 class Login extends StatefulWidget {
-  final VoidCallback show;
-  const Login(this.show,{super.key});
+  final VoidCallback toggleScreen;
+  const Login({super.key, required this.toggleScreen});
 
   @override
   State<Login> createState() => _LoginState();
+  
 }
 
 class _LoginState extends State<Login> {
@@ -18,6 +20,14 @@ class _LoginState extends State<Login> {
 
   final email = TextEditingController();
   final password = TextEditingController();
+
+  void showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  
   @override
   void initState(){
     super.initState();
@@ -71,7 +81,7 @@ class _LoginState extends State<Login> {
               Text('Do you have an account?', style: TextStyle(color: Colors.black54, fontSize: 14),),
               SizedBox(width: 5),
               GestureDetector(
-                onTap: widget.show,
+                onTap: widget.toggleScreen, // make sure toggleScreen is a VoidCallback
                 child: Text('Sign up ', style: TextStyle(color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),)),
               SizedBox(width: 20),           
                 ],
@@ -89,14 +99,41 @@ class _LoginState extends State<Login> {
                padding: const EdgeInsets.all(8.0),
                child: GestureDetector(
                 onTap: () async {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  await AuthenticationRemote().login(email.text, password.text);
-                  setState(() {
-                    isLoading = false;
-                  });
-                },
+  String userEmail = email.text.trim();
+  String userPassword = password.text.trim();
+
+  // 🔴 Validation
+  if (userEmail.isEmpty || userPassword.isEmpty) {
+    showError("Fill all fields");
+    return;
+  }
+
+  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(userEmail)) {
+    showError("Invalid email format");
+    return;
+  }
+
+  setState(() {
+    isLoading = true;
+  });
+
+  try {
+    await AuthenticationRemote().login(userEmail, userPassword);
+
+    // ✅ SUCCESS → go to home
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => Homepage()),
+    );
+
+  } catch (e) {
+    showError("Login failed");
+  }
+
+  setState(() {
+    isLoading = false;
+  });
+}
                  child: Container(
                   width: double.infinity,
                   height: 50,

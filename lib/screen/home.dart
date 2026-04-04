@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:todo/screen/login.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todo/auth/auth_page.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
@@ -12,21 +12,19 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
 
   @override
-  void initState() {
-    super.initState();
+@override
+void initState() {
+  super.initState();
 
-    Future.microtask(() {
-     if (FirebaseAuth.instance.currentUser == null) {
-  if (!mounted) return;
+  Future.delayed(Duration(seconds: 3), () {
+    if (!mounted) return;
 
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => Login(() {})),
-  );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => Authpage()),
+    );
+  });
 }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +46,8 @@ class _HomepageState extends State<Homepage> {
       
           child:Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage('assets/undraw_to-do-list_eoia.png'),
-              height: 180,
-              width: 180,
-            ),
+          children: [ SvgPicture.asset('assets/undraw_welcome-cats_tw36.svg', fit: BoxFit.contain),
+           
           
           const Text('Everything you need to do', style: TextStyle(
               fontSize: 28,
