@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:todo/screen/home.dart';
+import 'package:todo/screen/splash.dart';
 
 
 void main() async {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-    home: Homepage(),
+    home: Splashpage(),
    
   );    
   }

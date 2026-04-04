@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo/constant/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo/data/auth_database.dart';
-import 'package:todo/screen/homepage.dart';
+import 'package:todo/screen/splash.dart';
 
 class Login extends StatefulWidget {
   final VoidCallback toggleScreen;
@@ -117,23 +117,24 @@ class _LoginState extends State<Login> {
     isLoading = true;
   });
 
-  try {
-    await AuthenticationRemote().login(userEmail, userPassword);
+try {
+  await AuthenticationRemote().login(userEmail, userPassword);
 
-    // ✅ SUCCESS → go to home
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => Homepage()),
-    );
+  if (!mounted) return; // ✅ important fix
 
-  } catch (e) {
-    showError("Login failed");
-  }
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (_) => Splashpage()),
+  );
+
+} catch (e) {
+  showError("Login failed");
+}
 
   setState(() {
     isLoading = false;
   });
-}
+},
                  child: Container(
                   width: double.infinity,
                   height: 50,

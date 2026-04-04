@@ -2,14 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo/auth/auth_page.dart';
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+class Splashpage
+ extends StatefulWidget {
+  const Splashpage({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Splashpage> createState() => _SplashpageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _SplashpageState extends State<Splashpage> {
 
   @override
 @override

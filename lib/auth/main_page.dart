@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:todo/auth/auth_page.dart';
-import 'package:todo/screen/home.dart';
+import 'package:todo/screen/splash.dart';
 
 class Mainpage extends StatelessWidget {
   const Mainpage({super.key});
@@ -13,7 +13,7 @@ class Mainpage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),builder: (context, snapshot) {
           if(snapshot.hasData){
-            return Homepage();
+            return Splashpage();
           }else{
             return Authpage();
           }
