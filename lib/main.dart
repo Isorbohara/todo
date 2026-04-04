@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:todo/screen/homepage.dart';
-import 'package:todo/screen/splash.dart';
+// import 'package:todo/screen/splash.dart';
 
 
 void main() async {
