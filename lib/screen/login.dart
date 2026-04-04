@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo/constant/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo/data/auth_database.dart';
-import 'package:todo/screen/splash.dart';
+import 'package:todo/screen/homepage.dart';
 
 class Login extends StatefulWidget {
   final VoidCallback toggleScreen;
@@ -124,7 +124,7 @@ try {
 
   Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (_) => Splashpage()),
+    MaterialPageRoute(builder: (_) => Homepage()),
   );
 
 } catch (e) {

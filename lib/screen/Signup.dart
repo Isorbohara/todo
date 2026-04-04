@@ -3,6 +3,8 @@ import 'package:todo/constant/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo/data/auth_database.dart';
 
+
+
 class SignupScr extends StatefulWidget {
   final VoidCallback toggleScreen;
   const SignupScr({super.key, required this.toggleScreen});
@@ -28,7 +30,7 @@ class _SignupScrState extends State<SignupScr> {
     passwordFocusNode.addListener(() {
       setState(() {});
     });
-    confirmpassword.addListener(() {
+    confirmpasswordFocusNode.addListener(() {
       setState(() {});
     });
   }
@@ -67,9 +69,28 @@ class _SignupScrState extends State<SignupScr> {
     return Padding(
                padding: const EdgeInsets.all(8.0),
                child: GestureDetector(
-                 onTap: (){
-                  AuthenticationRemote().register(email.text, password.text, confirmpassword.text);
-                 },
+                 onTap: () async {
+  try {
+    await AuthenticationRemote().register(
+      email.text.trim(),
+      password.text.trim(),
+      confirmpassword.text.trim(),
+    );
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Account created successfully")),
+    );
+
+    widget.toggleScreen(); // go to login
+
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Signup failed")),
+    );
+  }
+},
                  child: Container(
                   width: double.infinity,
                   height: 50,
