@@ -1,23 +1,26 @@
+
 import 'package:flutter/material.dart';
-class Activities extends StatefulWidget {
-  const Activities({super.key});
 
-  @override
-  State<Activities> createState() => _ActivitiesState();
-}
+class Activities extends StatelessWidget {
+   final List<Map<String, dynamic>> tasks;
 
-class _ActivitiesState extends State<Activities> {
-  @override
+  Activities({required this.tasks});
+  
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            Text('Activities'),
-          ],
-        ),
-      )),
+    final activeTasks =
+        tasks.where((t) => t["done"] == false).toList();
+
+    return ListView.builder(
+      itemCount: activeTasks.length,
+      itemBuilder: (context, index) {
+        var task = activeTasks[index];
+
+        return ListTile(
+          title: Text(task["title"]),
+          subtitle: Text(task["description"]),
+        );
+      },
     );
   }
 }

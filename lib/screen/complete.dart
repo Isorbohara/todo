@@ -1,15 +1,29 @@
+
 import 'package:flutter/material.dart';
 
-class Complete extends StatefulWidget {
-  const Complete({super.key});
+class Complete extends StatelessWidget {
+ final List<Map<String, dynamic>> tasks;
 
-  @override
-  State<Complete> createState() => _CompleteState();
-}
+  Complete({required this.tasks});
 
-class _CompleteState extends State<Complete> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final completedTasks =
+        tasks.where((t) => t["done"] == true).toList();
+
+    return ListView.builder(
+      itemCount: completedTasks.length,
+      itemBuilder: (context, index) {
+        var task = completedTasks[index];
+
+        return ListTile(
+          title: Text(
+            task["title"],
+            style: TextStyle(decoration: TextDecoration.lineThrough),
+          ),
+          subtitle: Text(task["description"]),
+        );
+      },
+    );
   }
 }
